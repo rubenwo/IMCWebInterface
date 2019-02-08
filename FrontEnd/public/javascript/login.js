@@ -1,5 +1,3 @@
-let credentials;
-
 function login() {
     const authURL = "http://localhost/login";
 
@@ -16,8 +14,9 @@ function login() {
     }).then(response => {
         return response.json()
     }).then(data => {
-        credentials = data;
-        console.log(credentials)
+        console.log(data.uid)
+        localStorage.setItem("uid", data.uid)
+        window.location.href = "configPage.html"
     }).catch(err => console.error(err))
 }
 
