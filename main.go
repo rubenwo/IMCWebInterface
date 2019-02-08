@@ -1,7 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"IMCWebInterface/API"
+	"IMCWebInterface/FrontEnd"
+	"IMCWebInterface/IMC"
+)
 
 func main() {
-	fmt.Println("Hello world")
+	imc := IMC.TcpIMCServer{Port: "10000"}
+	webServer := FrontEnd.Server{}
+	apiServer := API.Server{}
+	go imc.Start()
+	go apiServer.Start()
+	webServer.Start()
 }

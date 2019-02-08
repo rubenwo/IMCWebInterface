@@ -1,0 +1,16 @@
+{
+    "broadcasts": [
+        {
+            "name": "Radio 1",
+            "url": "http://icecast.omroep.nl/radio1-bb-mp3"
+        },
+        {
+            "name": "Radio 2",
+            "url": "http://icecast.omroep.nl/radio1-bb-mp3"
+        },
+        {
+            "name": "Radio 3",
+            "url": "http://icecast.omroep.nl/radio1-bb-mp3"
+        }
+    ]
+}
