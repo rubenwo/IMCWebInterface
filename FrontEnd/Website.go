@@ -18,7 +18,9 @@ func (s *Server) Start() {
 	if s.Port == "" {
 		s.Port = "80"
 	}
-	http.HandleFunc("/", rootHandler)
+	//http.HandleFunc("/", rootHandler)
+	fs := http.FileServer(http.Dir("FrontEnd/public"))
+	http.Handle("/", fs)
 	http.ListenAndServe(":"+s.Port, nil)
 }
 func rootHandler(w http.ResponseWriter, req *http.Request) {
