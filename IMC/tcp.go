@@ -3,10 +3,12 @@ package IMC
 import "net"
 
 type TcpIMCServer struct {
-	Port string
+	Port    string
+	Running bool
 }
 
 func (s *TcpIMCServer) Start() error {
+	s.Running = true
 	ln, err := net.Listen("tcp", ":"+s.Port)
 	if err != nil {
 		return err
@@ -16,7 +18,7 @@ func (s *TcpIMCServer) Start() error {
 		if err != nil {
 			return err
 		}
-		handle(conn)
+		go handle(conn)
 	}
 }
 

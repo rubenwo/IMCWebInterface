@@ -16,7 +16,7 @@ function login() {
     }).then(data => {
         console.log(data.uid)
         localStorage.setItem("uid", data.uid)
-        window.location.href = "configPage.html"
+        window.location.href = "updater.html"
     }).catch(err => console.error(err))
 }
 
