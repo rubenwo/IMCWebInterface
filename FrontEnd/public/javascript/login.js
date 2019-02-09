@@ -1,5 +1,5 @@
 function login() {
-    const authURL = "http://localhost/login";
+    const authURL = "http://localhost:8081/login";
 
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
@@ -16,7 +16,7 @@ function login() {
     }).then(data => {
         console.log(data.uid)
         localStorage.setItem("uid", data.uid)
-        window.location.href = "updater.html"
+        window.location.href = "configurator.html"
     }).catch(err => console.error(err))
 }
 
