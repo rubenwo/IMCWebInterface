@@ -8,6 +8,7 @@ let state = {
 
 let currentState;
 
+
 function alarm() {
     console.log("Clicked Alarm button")
     let html = "ALARM";
@@ -41,7 +42,7 @@ function help() {
 
 function apply() {
     console.log("Clicked Apply button")
-    let uid = localStorage.getItem("uid")
+    let uid = sessionStorage.getItem("uid")
     console.log(uid)
     fetch("http://localhost:8081/api/config")
         .then(response => {

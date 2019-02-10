@@ -2,6 +2,16 @@
 <html>
 
 <head>
+    <script>
+        check()
+
+        function check() {
+            let uid = sessionStorage.getItem("uid")
+            if (!uid)
+                window.location.href = "/#"
+
+        }
+    </script>
     <meta charset="utf-8">
     <title>Configure IMC Device</title>
     <meta name="generator" content="Google Web Designer 5.0.3.0130">

@@ -15,7 +15,7 @@ function login() {
         return response.json()
     }).then(data => {
         console.log(data.uid)
-        localStorage.setItem("uid", data.uid)
+        sessionStorage.setItem("uid", data.uid)
         window.location.href = "configurator.html"
     }).catch(err => console.error(err))
 }
