@@ -11,6 +11,6 @@ func main() {
 	webServer := FrontEnd.Server{}
 	apiServer := API.Server{}
 	go imc.Start()
-	go apiServer.Start(&imc)
+	go apiServer.Start()
 	webServer.Start()
 }

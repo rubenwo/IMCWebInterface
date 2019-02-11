@@ -1,6 +1,9 @@
 package IMC
 
-import "net"
+import (
+	"fmt"
+	"net"
+)
 
 type TcpIMCServer struct {
 	Port    string
@@ -13,6 +16,7 @@ func (s *TcpIMCServer) Start() error {
 	if err != nil {
 		return err
 	}
+	fmt.Println("IMC Server is running...")
 	for {
 		conn, err := ln.Accept()
 		if err != nil {

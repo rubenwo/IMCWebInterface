@@ -1,9 +1,7 @@
 package API
 
 import (
-	"IMCWebInterface/IMC"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/gorilla/mux"
 	"log"
@@ -29,24 +27,19 @@ type loginResponse struct {
 	UID   string `json:"uid,omitempty"`
 }
 
-var imc *IMC.TcpIMCServer
-
-func (s *Server) Start(i *IMC.TcpIMCServer) error {
+func (s *Server) Start() {
 	if s.Port == "" {
 		s.Port = "8081"
 	}
 	s.Running = true
-	if i.Running == false {
-		return errors.New("IMC server is not running...\n")
-	}
-	imc = i
+
 	router := mux.NewRouter()
 	router.HandleFunc("/api/config", updateConfigEndpoint).Methods("POST")
 	router.HandleFunc("/api/config", getConfigEndpoint).Methods("GET")
 	router.HandleFunc("/api/radio", getRadioEndpoint).Methods("GET")
 	router.HandleFunc("/login", loginEndpoint).Methods("POST")
-	http.ListenAndServe(":"+s.Port, router)
-	return nil
+	fmt.Println("API Server is running...")
+	log.Fatal(http.ListenAndServe(":"+s.Port, router))
 }
 func enableCORS(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")

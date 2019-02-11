@@ -1,6 +1,8 @@
 package FrontEnd
 
 import (
+	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -15,7 +17,8 @@ func (s *Server) Start() {
 		s.Port = "80"
 	}
 	http.HandleFunc("/", rootHandler)
-	http.ListenAndServe(":"+s.Port, nil)
+	fmt.Println("Web Server is running...")
+	log.Fatal(http.ListenAndServe(":"+s.Port, nil))
 }
 func rootHandler(w http.ResponseWriter, req *http.Request) {
 	fs.ServeHTTP(w, req)
