@@ -8,25 +8,7 @@ import (
 	"net/http"
 )
 
-type Server struct {
-	Port    string
-	Running bool
-}
-
-type response struct {
-	Data string `json:"data,omitempty"`
-}
-
-type Credentials struct {
-	Username string `json:"username, omitempty"`
-	Password string `json:"password, omitempty"`
-}
-
-type loginResponse struct {
-	Valid bool   `json:"valid,omitempty"`
-	UID   string `json:"uid,omitempty"`
-}
-
+// Start's the REST API server
 func (s *Server) Start() {
 	if s.Port == "" {
 		s.Port = "8081"
@@ -34,21 +16,34 @@ func (s *Server) Start() {
 	s.Running = true
 
 	router := mux.NewRouter()
-	router.HandleFunc("/api/config", updateConfigEndpoint).Methods("POST")
-	router.HandleFunc("/api/config", getConfigEndpoint).Methods("GET")
-	router.HandleFunc("/api/radio", getRadioEndpoint).Methods("GET")
+	router.HandleFunc("/api/config/{radioID}", updateConfigEndpoint).Methods("POST")
+	router.HandleFunc("/api/config/{radioID}", getConfigEndpoint).Methods("GET")
+	router.HandleFunc("/api/radios/{accountID}", getRadiosEndpoint).Methods("GET")
 	router.HandleFunc("/login", loginEndpoint).Methods("POST")
 	fmt.Println("API Server is running...")
 	log.Fatal(http.ListenAndServe(":"+s.Port, router))
 }
+
+// Enables CORS for http responses
 func enableCORS(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 }
 
+// POST: Updates the config of 1 radio. Has a radioID as var. Receives JSON Config object as body.
 func updateConfigEndpoint(w http.ResponseWriter, req *http.Request) {
-	fmt.Println(req.RemoteAddr)
+	// Get radioID from vars
+	vars := mux.Vars(req)
+	fmt.Println("Radio ID:", vars["radioID"])
+
+	// Decode Config from body
+	var c Config
+	if err := json.NewDecoder(req.Body).Decode(&c); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(c)
+	// Begin Response
 	enableCORS(&w)
 	d, err := json.Marshal(response{"Update Config Endpoint"})
 	if err != nil {
@@ -57,8 +52,13 @@ func updateConfigEndpoint(w http.ResponseWriter, req *http.Request) {
 	w.Write(d)
 }
 
+// GET: Get the config of 1 radio. Has a radioID as var.
 func getConfigEndpoint(w http.ResponseWriter, req *http.Request) {
-	fmt.Println(req.RemoteAddr)
+	// Get radioID from vars
+	vars := mux.Vars(req)
+	fmt.Println("Radio ID:", vars["radioID"])
+
+	// Begin Response
 	enableCORS(&w)
 	d, err := json.Marshal(response{"Get Config Endpoint"})
 	if err != nil {
@@ -67,8 +67,13 @@ func getConfigEndpoint(w http.ResponseWriter, req *http.Request) {
 	w.Write(d)
 }
 
-func getRadioEndpoint(w http.ResponseWriter, req *http.Request) {
-	fmt.Println(req.Body)
+// GET: Get all radio saved to an account UID. Has accountUID as var.
+func getRadiosEndpoint(w http.ResponseWriter, req *http.Request) {
+	// Get radioID from vars
+	vars := mux.Vars(req)
+	fmt.Println("Account ID:", vars["accountID"])
+
+	// Begin Response
 	enableCORS(&w)
 	d, err := json.Marshal(response{"Get Radio Endpoint"})
 	if err != nil {
@@ -76,6 +81,8 @@ func getRadioEndpoint(w http.ResponseWriter, req *http.Request) {
 	}
 	w.Write(d)
 }
+
+// POST: Login endpoint. Receives JSON Credentials object as body.
 func loginEndpoint(w http.ResponseWriter, req *http.Request) {
 	enableCORS(&w)
 
@@ -91,6 +98,7 @@ func loginEndpoint(w http.ResponseWriter, req *http.Request) {
 	w.Write(resp)
 }
 
+// Validate login based on credentials. Returns a login response.
 func validate(credentials *Credentials) loginResponse {
 	return loginResponse{
 		Valid: true,
