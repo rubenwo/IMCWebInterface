@@ -21,9 +21,9 @@ func main() {
 	loadConfigs()
 	router := mux.NewRouter()
 
-	router.HandleFunc("/config/update{id}", updateConfigEndpoint).Methods("POST")
-	router.HandleFunc("/config/delete{id}", deleteConfigEndpoint).Methods("DELETE")
-	router.HandleFunc("/config/get{id}", getConfigEndpoint).Methods("GET")
+	router.HandleFunc("/config/update/{id}", updateConfigEndpoint).Methods("POST")
+	router.HandleFunc("/config/delete/{id}", deleteConfigEndpoint).Methods("DELETE")
+	router.HandleFunc("/config/get/{id}", getConfigEndpoint).Methods("GET")
 
 	fmt.Println("Starting IMC server on port 80...")
 	log.Fatal(http.ListenAndServe(":80", router))

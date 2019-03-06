@@ -7,7 +7,7 @@ services:
       context: .
     image: imc-web-interface-client
     volumes:
-      - ./client.web:/usr/src/app
+      - .:/go/src/imc-web-interface
     ports:
       - 7000:80
     env_file:
@@ -19,7 +19,7 @@ services:
       context: .
     image: imc-web-interface-auth
     volumes:
-      - ./service.auth:/usr/src/app
+      - .:/go/src/imc-web-interface
     ports:
       - 7001:80
     env_file:
@@ -31,7 +31,7 @@ services:
       context: .
     image: imc-web-interface-config
     volumes:
-      - ./service.config:/usr/src/app
+      - .:/go/src/imc-web-interface
     ports:
       - 7002:80
     env_file:
