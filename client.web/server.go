@@ -9,8 +9,11 @@ import (
 func main() {
 	fs := http.FileServer(http.Dir("public"))
 	http.Handle("/", fs)
-	/* Testing the service.config from another image
-	resp, err := http.Get("http://service.config/config/1")
+	/* Testing the service.auth from another image
+	resp, err := http.Post(
+		"http://service.auth/login",
+		"application/json",
+		bytes.NewBuffer([]byte(`"username":"Ruben","password":"test"`)))
 	fmt.Println(resp.Status)
 	fmt.Println(err)
 	*/

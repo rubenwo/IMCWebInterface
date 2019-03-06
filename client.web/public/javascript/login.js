@@ -1,5 +1,5 @@
 function login() {
-    const authURL = "http://localhost:8081/login";
+    const authURL = "http://localhost:7001/login";
 
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;

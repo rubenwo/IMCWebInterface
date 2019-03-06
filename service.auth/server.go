@@ -10,6 +10,11 @@ import (
 	"os"
 )
 
+type Response struct {
+	UID   string `json:"uid"`
+	Error string `json:"error"`
+}
+
 type Accounts struct {
 	Credentials []Credentials `json:"accounts"`
 }
@@ -61,9 +66,17 @@ func authenticationEndpoint(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Println("error authenticating:", err)
 	}
-	fmt.Println(uuid)
+	fmt.Println("UUID:", uuid)
 
-	w.WriteHeader(200)
+	response := Response{
+		UID:   uuid,
+		Error: fmt.Sprint(err)}
+
+	resp, err := json.Marshal(response)
+	if err != nil {
+		log.Println("error marshalling:", err)
+	}
+	w.Write(resp)
 }
 
 // authenticate a user using the provided credentials
