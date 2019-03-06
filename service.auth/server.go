@@ -2,10 +2,17 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 )
+
+type Accounts struct {
+	Credentials []Credentials `json:"accounts"`
+}
 
 // Credentials is a struct containing a username and password.
 // Struct is used to unmarshall.
@@ -14,10 +21,28 @@ type Credentials struct {
 	Password string `json:"password"`
 }
 
+var accounts Accounts
+
 func main() {
+	initAccounts()
 	http.HandleFunc("/login", authenticationEndpoint)
 	fmt.Println("Starting authentications server...")
 	log.Fatal(http.ListenAndServe(":80", nil))
+}
+
+func initAccounts() {
+	fmt.Println("Loading accounts...")
+	jsonFile, err := os.Open("accounts.json")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("Successfully opened accounts.json")
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+	json.Unmarshal(byteValue, &accounts)
+	fmt.Println("Unmarshalled accounts.json to accounts variable")
+	for i := 0; i < len(accounts.Credentials); i++ {
+		fmt.Printf("[LOADED] Username: %s, Password: %s\n", accounts.Credentials[i].Username, accounts.Credentials[i].Password)
+	}
 }
 
 // receives login information in the body of a POST request
@@ -43,5 +68,12 @@ func authenticationEndpoint(w http.ResponseWriter, req *http.Request) {
 
 // authenticate a user using the provided credentials
 func authenticate(c *Credentials) (string, error) {
-	return "", nil
+	for i := 0; i < len(accounts.Credentials); i++ {
+		username := accounts.Credentials[i].Username
+		password := accounts.Credentials[i].Password
+		if username == c.Username && password == c.Password {
+			return "Authenticated", nil
+		}
+	}
+	return "", errors.New("Couldn't authenticate the user")
 }
