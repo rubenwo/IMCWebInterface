@@ -1,0 +1,38 @@
+version: '1'
+
+services:
+  client.web
+    build:
+      dockerfile: ./client.web/Dockerfile
+      context: .
+      image: imc-web-interface-client
+      volumes:
+        - ./client.web/usr/src/app
+      ports:
+        - 7000:80
+      env_file:
+        - ./.env 
+
+  service.auth
+    build:
+      dockerfile: ./service.auth/Dockerfile
+      context: .
+      image: imc-web-interface-auth
+      volumes:
+        - ./service.auth/usr/src/app
+      ports:
+        - 7001:80
+      env_file:
+        - ./.env 
+
+  service.config
+    build:
+      dockerfile: ./service.config/Dockerfile
+      context: .
+      image: imc-web-interface-config
+      volumes:
+        - ./service.config/usr/src/app
+      ports:
+        - 7002:80
+      env_file:
+        - ./.env 
