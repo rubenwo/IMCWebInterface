@@ -12,6 +12,9 @@ services:
       - 7000:80
     env_file:
       - ./.env 
+    depends_on: 
+      - service.auth
+      - service.config
 
   service.auth:
     build:
