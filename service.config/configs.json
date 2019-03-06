@@ -1,3 +1,21 @@
 {
-    
+    "configs": [
+        {
+            "ïd": "1",
+            "radio_settings": {
+                "volume": 10,
+                "treble": 6,
+                "bass": 25,
+                "sound": "beep"
+            },
+            "alarm_settings": {
+                "alarm_id": "daily_1",
+                "time": "10:10"
+            },
+            "general_settings": {
+                "language": "Dutch",
+                "time": "09:30"
+            }
+        }
+    ]
 }

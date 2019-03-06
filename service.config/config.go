@@ -1,7 +1,7 @@
 package main
 
 type Config struct {
-	ID              int             `json:"id"`
+	ID              string          `json:"id"`
 	RadioSettings   RadioSettings   `json:"radio_settings"`
 	AlarmSettings   AlarmSettings   `json:"alarm_settings"`
 	GeneralSettings GeneralSettings `json:"general_settings"`
