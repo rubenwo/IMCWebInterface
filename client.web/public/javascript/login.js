@@ -1,5 +1,5 @@
 function login() {
-    const authURL = "http://localhost:7001/login";
+    const authURL = "http://disclaimerszijneending.nl:7001/login";
 
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
@@ -18,6 +18,7 @@ function login() {
         sessionStorage.setItem("uid", data.uid)
         window.location.href = "configurator.html"
     }).catch(err => console.error(err))
+    return false;
 }
 
 

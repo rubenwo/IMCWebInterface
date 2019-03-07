@@ -44,7 +44,7 @@ function apply() {
     console.log("Clicked Apply button")
     let uid = sessionStorage.getItem("uid")
     console.log(uid)
-    fetch("http://localhost:8081/api/config")
+    fetch("http://disclaimerszijneending.nl:7002/api/config/123")
         .then(response => {
             return response.json()
         }).then(data => {
