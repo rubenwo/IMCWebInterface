@@ -1,7 +1,7 @@
 {
     "configs": [
         {
-            "ïd": "1",
+            "id": "123",
             "radio_settings": {
                 "volume": 10,
                 "treble": 6,

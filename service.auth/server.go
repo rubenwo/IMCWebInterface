@@ -11,12 +11,19 @@ import (
 )
 
 type Response struct {
-	UID   string `json:"uid"`
-	Error string `json:"error"`
+	UID     string `json:"uid"`
+	Devices []int  `json:"devices"`
+	Error   string `json:"error"`
 }
 
 type Accounts struct {
-	Credentials []Credentials `json:"accounts"`
+	Accounts []Account `json:"accounts"`
+}
+
+type Account struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Devices  []int  `json:"devices"`
 }
 
 // Credentials is a struct containing a username and password.
@@ -45,8 +52,8 @@ func initAccounts() {
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	json.Unmarshal(byteValue, &accounts)
 	fmt.Println("Unmarshalled accounts.json to accounts variable")
-	for i := 0; i < len(accounts.Credentials); i++ {
-		fmt.Printf("[LOADED] Username: %s, Password: %s\n", accounts.Credentials[i].Username, accounts.Credentials[i].Password)
+	for i := 0; i < len(accounts.Accounts); i++ {
+		fmt.Printf("[LOADED] Username: %s, Password: %s\n", accounts.Accounts[i].Username, accounts.Accounts[i].Password)
 	}
 }
 
@@ -61,32 +68,37 @@ func authenticationEndpoint(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	fmt.Println(c)
-	uuid, err := authenticate(&c)
+	uuid, devices, err := authenticate(&c)
 
 	if err != nil {
 		log.Println("error authenticating:", err)
+		w.WriteHeader(401)
+		return
 	}
 	fmt.Println("UUID:", uuid)
 
 	response := Response{
-		UID:   uuid,
-		Error: fmt.Sprint(err)}
+		UID:     uuid,
+		Devices: devices,
+		Error:   ""}
 
 	resp, err := json.Marshal(response)
 	if err != nil {
 		log.Println("error marshalling:", err)
+		w.WriteHeader(500)
+		return
 	}
 	w.Write(resp)
 }
 
 // authenticate a user using the provided credentials
-func authenticate(c *Credentials) (string, error) {
-	for i := 0; i < len(accounts.Credentials); i++ {
-		username := accounts.Credentials[i].Username
-		password := accounts.Credentials[i].Password
+func authenticate(c *Credentials) (string, []int, error) {
+	for i := 0; i < len(accounts.Accounts); i++ {
+		username := accounts.Accounts[i].Username
+		password := accounts.Accounts[i].Password
 		if username == c.Username && password == c.Password {
-			return "Authenticated", nil
+			return "Authenticated", accounts.Accounts[i].Devices, nil
 		}
 	}
-	return "", errors.New("Couldn't authenticate the user")
+	return "", nil, errors.New("couldn't authenticate the user")
 }
