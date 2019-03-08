@@ -37,7 +37,7 @@ var accounts Accounts
 
 func main() {
 	initAccounts()
-	http.HandleFunc("/login", authenticationEndpoint)
+	http.HandleFunc("/auth", authenticationEndpoint)
 	fmt.Println("Starting authentications server...")
 	log.Fatal(http.ListenAndServe(":80", nil))
 }

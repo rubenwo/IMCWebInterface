@@ -8,12 +8,20 @@ let state = {
 
 let currentState;
 
+let device_ids = JSON.parse(sessionStorage.getItem("devices"))
+console.log(device_ids)
+
+for (let i = 0; i < device_ids.lenght; i++) {
+    console.log(device_ids[i])
+}
+
+
 
 function alarm() {
     console.log("Clicked Alarm button")
     let html = "ALARM";
     document.getElementById("main_content").innerHTML = html;
-    currentState = state.ALARM
+    currentState = device_ids//state.ALARM
 }
 
 function radio_status() {
@@ -44,12 +52,12 @@ function apply() {
     console.log("Clicked Apply button")
     let uid = sessionStorage.getItem("uid")
     console.log(uid)
-    fetch("http://localhost:7002/config/123")
+    fetch("http://localhost/config/123")
         .then(response => {
             return response.json()
         }).then(data => {
-        console.log(data)
-    }).catch(err => console.error(err))
+            console.log(data)
+        }).catch(err => console.error(err))
     document.getElementById("main_content").innerHTML = "APPLY"
     switch (currentState) {
         case state.ALARM:

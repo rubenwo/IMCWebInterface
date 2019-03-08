@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   client.web:
@@ -9,10 +9,24 @@ services:
     volumes:
       - ./client.web:/usr/src/app
     ports:
+      - 7000:80
+    env_file:
+      - ./.env
+
+  service.api-gateway:
+    build:
+      dockerfile: ./service.api-gateway/Dockerfile
+      context: .
+    image: imc-web-interface-api-gateway
+    volumes:
+      - ./service.api-gateway:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
       - 80:80
     env_file:
-      - ./.env 
-    depends_on: 
+      - ./.env
+    depends_on:
+      - client.web
       - service.auth
       - service.config
 
@@ -26,7 +40,7 @@ services:
     ports:
       - 7001:80
     env_file:
-      - ./.env 
+      - ./.env
 
   service.config:
     build:
@@ -38,4 +52,4 @@ services:
     ports:
       - 7002:80
     env_file:
-      - ./.env 
+      - ./.env

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <script>
-    //check()
+    check()
 
     function check() {
         let uid = sessionStorage.getItem("uid")
@@ -11,16 +11,17 @@
             window.location.href = "/configurator.html"
     }
 </script>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="javascript/login.js"></script>
     <title>IMC Login page</title>
 </head>
 
-<form class="box">
+<form class="box" onsubmit="return false">
     <h1>Login</h1>
     <input id="username" type="text" name="" placeholder="Username">
     <input id="password" type="password" name="" placeholder="Password">
