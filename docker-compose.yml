@@ -29,6 +29,10 @@ services:
       - client.web
       - service.auth
       - service.config
+    links:
+      - client.web
+      - service.auth
+      - service.config
 
   service.auth:
     build:
