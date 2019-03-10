@@ -16,12 +16,7 @@ app.post('/auth', (req, res, next) => {
   auth_service_proxy(req, res, next)
 })
 
-app.post('/config', (req, res, next) => {
-  console.log('Redirecting to config service...')
-  config_service_proxy(req, res, next)
-})
-
-app.all('/config/:id', (req, res, next) => {
+app.all('/config*', (req, res, next) => {
   console.log('Redirecting to config service...')
   config_service_proxy(req, res, next)
 })
