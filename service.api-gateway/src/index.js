@@ -12,18 +12,17 @@ app.use((req, res, next) => {
 })
 
 app.post('/auth', (req, res, next) => {
+  console.log('Redirecting to authentication service...')
   auth_service_proxy(req, res, next)
 })
 
-app.post('/config', (req, res, next) => {
-  config_service_proxy(req, res, next)
-})
-
-app.all('/config/:id', (req, res, next) => {
+app.all('/config*', (req, res, next) => {
+  console.log('Redirecting to config service...')
   config_service_proxy(req, res, next)
 })
 
 app.get('/*', (req, res, next) => {
+  console.log('Redirecting to nginx web service...')
   web_client_proxy(req, res, next)
 })
 
