@@ -8,7 +8,7 @@ type Config struct {
 	AudioSettings    AudioSettings    `json:"audio_settings"`
 	RadioSettings    RadioSettings    `json:"radio_settings"`
 	AlarmSettings    AlarmSettings    `json:"alarm_settings"`
-	GeneralSettings  GeneralSettings  `json:"general_settings`
+	GeneralSettings  GeneralSettings  `json:"general_settings"`
 }
 
 //DateTimeSettings is a struct containing all settings for date & time

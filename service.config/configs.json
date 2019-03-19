@@ -2,19 +2,44 @@
     "configs": [
         {
             "id": "123",
-            "radio_settings": {
+            "datetime_settings": {
+                "time_hour": 12,
+                "time_minute": 58,
+                "date_year": 19,
+                "date_month": 3,
+                "date_day": 19,
+                "timezone": 1,
+                "timesync": 0
+            },
+            "network_settings": {
+                "mac_address": [
+                    0,
+                    0,
+                    50,
+                    10,
+                    16,
+                    0
+                ]
+            },
+            "audio_settings": {
                 "volume": 10,
-                "treble": 6,
-                "bass": 25,
-                "sound": "beep"
+                "treble": 5,
+                "bass": 15
+            },
+            "radio_settings": {
+                "ip_address": "123.123.123.123",
+                "port": 80,
+                "route": "/"
             },
             "alarm_settings": {
-                "alarm_id": "daily_1",
-                "time": "10:10"
+                "time_hour": 13,
+                "time_minute": 1,
+                "re_arm": 1,
+                "audio_type": 0,
+                "radio_channel": "c-rock"
             },
             "general_settings": {
-                "language": "Dutch",
-                "time": "09:30"
+                "factory_settings": 0
             }
         }
     ]
