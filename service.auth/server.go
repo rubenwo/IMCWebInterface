@@ -68,9 +68,9 @@ func enableCORS(w *http.ResponseWriter) {
 // then validates the login credentials and sends a response
 func authenticationEndpoint(w http.ResponseWriter, req *http.Request) {
 	fmt.Println("In authentication endpoint...")
-	enableCORS(&w)
 	var c Credentials
 	if err := json.NewDecoder(req.Body).Decode(&c); err != nil {
+		enableCORS(&w)
 		w.WriteHeader(422)
 		log.Println("Error decoding json to Credentials struct")
 		return
@@ -80,6 +80,7 @@ func authenticationEndpoint(w http.ResponseWriter, req *http.Request) {
 
 	if err != nil {
 		log.Println("error authenticating:", err)
+		enableCORS(&w)
 		w.WriteHeader(401)
 		return
 	}
@@ -93,9 +94,11 @@ func authenticationEndpoint(w http.ResponseWriter, req *http.Request) {
 	resp, err := json.Marshal(response)
 	if err != nil {
 		log.Println("error marshalling:", err)
+		enableCORS(&w)
 		w.WriteHeader(500)
 		return
 	}
+	enableCORS(&w)
 	w.Write(resp)
 }
 
