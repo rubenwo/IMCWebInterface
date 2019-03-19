@@ -18,7 +18,7 @@ function login() {
         sessionStorage.setItem("uid", data.uid)
         console.log(data.devices)
         sessionStorage.setItem("devices", JSON.stringify(data.devices))
-        window.location.href = "configurator.html"
+        window.location.href = "editor.html"
     }).catch(err => console.error(err))
     return false;
 }
