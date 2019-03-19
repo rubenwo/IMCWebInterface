@@ -1,5 +1,5 @@
 function login() {
-    const authURL = "http://localhost/auth ";
+    const authURL = "http://disclaimerszijneending.nl/auth ";
 
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;

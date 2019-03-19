@@ -8,8 +8,6 @@ services:
     image: imc-web-interface-client
     volumes:
       - ./client.web:/usr/src/app
-    env_file:
-      - ./.env
 
   service.api-gateway:
     build:
@@ -21,8 +19,6 @@ services:
       - /usr/src/app/node_modules
     ports:
       - 80:80
-    env_file:
-      - ./.env
     depends_on:
       - client.web
       - service.auth
@@ -39,8 +35,6 @@ services:
     image: imc-web-interface-auth
     volumes:
       - .:/go/src/imc-web-interface
-    env_file:
-      - ./.env
 
   service.config:
     build:
@@ -49,5 +43,3 @@ services:
     image: imc-web-interface-config
     volumes:
       - .:/go/src/imc-web-interface
-    env_file:
-      - ./.env
