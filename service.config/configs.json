@@ -3,23 +3,13 @@
         {
             "id": "123",
             "datetime_settings": {
-                "time_hour": 12,
-                "time_minute": 58,
+                "datetime_hour": 12,
+                "datetime_minute": 58,
                 "date_year": 19,
                 "date_month": 3,
                 "date_day": 19,
                 "timezone": 1,
                 "timesync": 0
-            },
-            "network_settings": {
-                "mac_address": [
-                    0,
-                    0,
-                    50,
-                    10,
-                    16,
-                    0
-                ]
             },
             "audio_settings": {
                 "volume": 10,
@@ -28,15 +18,16 @@
             },
             "radio_settings": {
                 "ip_address": "123.123.123.123",
+                "name": "Jazz",
                 "port": 80,
                 "route": "/"
             },
             "alarm_settings": {
-                "time_hour": 13,
-                "time_minute": 1,
+                "alarm_time_hour": 13,
+                "alarm_time_minute": 1,
                 "re_arm": 1,
                 "audio_type": 0,
-                "radio_channel": "c-rock"
+                "radio_channel": 1
             },
             "general_settings": {
                 "factory_settings": 0

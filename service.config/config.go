@@ -4,7 +4,6 @@ package main
 type Config struct {
 	ID               string           `json:"id"`
 	DateTimeSettings DateTimeSettings `json:"datetime_settings"`
-	NetworkSettings  NetworkSettings  `json:"network_settings"`
 	AudioSettings    AudioSettings    `json:"audio_settings"`
 	RadioSettings    RadioSettings    `json:"radio_settings"`
 	AlarmSettings    AlarmSettings    `json:"alarm_settings"`
@@ -13,18 +12,13 @@ type Config struct {
 
 //DateTimeSettings is a struct containing all settings for date & time
 type DateTimeSettings struct {
-	TimeHH   int `json:"time_hour"`
-	TimeMM   int `json:"time_minute"`
+	TimeHH   int `json:"datetime_hour"`
+	TimeMM   int `json:"datetime_minute"`
 	DateYY   int `json:"date_year"`
 	DateMO   int `json:"date_month"`
 	DateDD   int `json:"date_day"`
 	TimeZone int `json:"timezone"`
 	TimeSync int `json:"timesync"`
-}
-
-//NetworkSettings contains an integer array containing the mac address for the IMC
-type NetworkSettings struct {
-	MacAddress []int `json:"mac_address"`
 }
 
 //AudioSettings contains all settings contraining audio (Volume, Treble & Bass)
@@ -43,11 +37,11 @@ type RadioSettings struct {
 
 //AlarmSettings contains all settings for the alarms [WARNING] Might change
 type AlarmSettings struct {
-	TimeHH       int    `json:"time_hour"`
-	TimeMM       int    `json:"time_minute"`
-	ReArm        int    `json:"re_arm"`
-	AudioType    int    `json:"audio_type"`
-	RadioChannel string `json:"radio_channel"`
+	TimeHH       int `json:"alarm_time_hour"`
+	TimeMM       int `json:"alarm_time_minute"`
+	ReArm        int `json:"re_arm"`
+	AudioType    int `json:"audio_type"`
+	RadioChannel int `json:"radio_channel"`
 }
 
 //GeneralSettings contains a flag whether the device should return to factory settings

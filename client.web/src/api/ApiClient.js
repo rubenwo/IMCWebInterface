@@ -13,11 +13,24 @@ export default class ApiClient {
                 "password": password
             })
         console.log(response)
-        return response
+        return response.data
     }
 
-    async fetchConfigs(id) {
+    async fetchConfig(id) {
         let response = await axios.get(this.apiGatewayUrl + "/config/" + id);
         return response.data;
     }
+
+    async fetchConfigs(...ids) {
+        let configs = [];
+
+        for (let i = 0; i < ids.length; i++) {
+            let conf = await this.fetchConfig(ids[i])
+            configs.push(conf)
+        }
+
+        return configs
+    }
+
+
 }

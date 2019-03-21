@@ -33,10 +33,12 @@ export default {
     StatsCard
   },
   async created() {
-  //  let credentials = await apiClient.login("Ruben", "test");
-    let configs = await apiClient.fetchConfigs(123);
+    //  let credentials = await apiClient.login("Ruben", "test");
+    // for (let i = 0; i < credentials.devices.length; i++) {
+    let configs = await apiClient.fetchConfig(123);
     this.configs.push(configs);
     console.log(this.configs);
+    // }
   },
   data() {
     return {
